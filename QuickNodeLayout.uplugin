@@ -1,0 +1,23 @@
+{
+  "FileVersion": 3,
+  "Version": 2,
+  "VersionName": "1.1.0",
+  "FriendlyName": "Quick Node Layout",
+  "Description": "Organize Blueprint and UMG graphs with multiple layout styles, without changing their logic.",
+  "Category": "Editor",
+  "CreatedBy": "ArchVisualizer",
+  "CanContainContent": false,
+  "EnabledByDefault": true,
+  "Modules": [
+    {
+      "Name": "QuickNodeLayout",
+      "Type": "Editor",
+      "LoadingPhase": "PostEngineInit",
+      "PlatformAllowList": [
+        "Win64"
+      ]
+    }
+  ],
+  "EngineVersion": "5.6.1",
+  "Installed": true
+}
