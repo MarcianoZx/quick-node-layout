@@ -1,5 +1,48 @@
 # Quick Node Layout 1.1 — Unreal Engine 5.6
 
+Editor plugin for organizing Blueprint nodes, including the Widget Blueprint graph.
+
+## Use
+
+1. Open a Blueprint and navigate to the desired graph.
+2. Click **Organize Nodes** in the top bar and choose a style.
+3. If nodes are selected, only the selection is organized. If nothing is selected, the entire graph is organized.
+4. Selecting a comment box includes the nodes contained within it.
+5. **Ctrl+Z** undoes the entire operation. The plugin does not auto-save.
+
+The button is disabled in the Designer, during Play mode, and for incompatible or non-editable graphs.
+
+## Available Styles
+
+| Option | Behavior |
+| --- | --- |
+| **Human Flow** | Keeps the primary execution path on the same line, separates branches, and groups data dependencies below the consumer. Start with this option. |
+| **Compact Flow** | Uses the same strategy with tighter spacing. |
+| **Layered Layout** | Retains the original algorithm, distributing all dependencies into columns. |
+| **Gentle Cleanup** | Preserves the existing layout, aligns to the grid, and shifts overlapping nodes downward. |
+
+Shared dependencies are positioned only once. Loops and join points may require manual adjustments. The menu, tooltips, notifications, and undo operation name are in English.
+
+## Organization
+
+- Primary flow from left to right, prioritizing execution wires.
+- Data dependencies distributed before consumers.
+- Branch ordering to reduce crossings; spacing based on rendered node sizes.
+- Disconnected blocks separated, comment boxes resized, and positions grid-aligned.
+- Cycle handling without removing wires; reroute nodes are preserved.
+- When organizing a selection, the block may be shifted downward to avoid external nodes.
+
+Uses a local heuristic; no AI, networking, tokens, or paid dependencies involved. Does not guarantee the mathematical minimum number of crossings. Overlapping comments and graphs with many cycles may require manual adjustments. Limit of 2,000 nodes per operation; select specific sections in larger graphs. Uses a conservative estimate if visual size data is unavailable.
+
+Only comment positions and dimensions are modified. Does not compile Blueprints, alter connections, remove nodes, or change values.
+
+
+
+-------------------------- PT-BR---------------------------------
+
+
+# Quick Node Layout 1.1 — Unreal Engine 5.6
+
 Plugin de editor para organizar nós de Blueprints, incluindo o Graph dos Widget Blueprints.
 
 ## Uso
@@ -36,22 +79,3 @@ Usa uma heurística local, sem IA, rede, tokens ou dependências pagas. Não gar
 
 Somente posições e dimensões de comentários são alteradas. Não compila Blueprints, altera conexões, remove nós ou muda valores.
 
-## Instalação
-
-O pacote desta versão é `QuickNodeLayout_1.1.0_UE5.6.1_Win64.zip`, para Unreal Engine **5.6.1 / Windows 64 bits / build 44394996**. A versão anterior foi preservada separadamente.
-
-1. Feche o editor do projeto de teste.
-2. Extraia o ZIP e copie a pasta **QuickNodeLayout** para `SeuProjetoDeTeste/Plugins/QuickNodeLayout`.
-3. Confira que o descritor está em `Plugins/QuickNodeLayout/QuickNodeLayout.uplugin`, sem uma pasta duplicada entre eles.
-4. Reabra o projeto e confira **Edit > Plugins > Quick Node Layout**.
-5. Abra o Graph de um Blueprint, selecione um pequeno trecho e escolha **Organize Nodes > Human Flow**. Confira a disposição e teste **Ctrl+Z** antes de salvar.
-
-Para atualizar, feche a Unreal antes de substituir a pasta antiga `QuickNodeLayout` pela nova. Não mantenha duas cópias do mesmo plugin nas pastas de plugins do projeto e do motor.
-
-Não é preciso instalar nada no motor. A DLL depende das bibliotecas padrão do editor Unreal; o algoritmo não usa rede, Python, IA, MetaHuman ou um editor remoto. Outra versão/build da Unreal exige recompilar os fontes incluídos. O código-fonte também está presente no pacote para ajustes e recompilação.
-
-## Validação
-
-Os testes da versão 1.1 passaram nos quatro estilos: execução em linha, agrupamento de dados, redução de área no modo compacto, preservação de posições no modo suave, ciclos e ausência de sobreposições. Incluem 30 grafos pseudoaleatórios e 2000 nós por estilo; a etapa com 2000 nós nos quatro modos e verificação de sobreposições levou 130 ms neste computador.
-
-A DLL compilou diretamente com MSVC em 24 segundos, sem executar o gerador de código da Unreal nem modificar o ArchVisualizer. **O teste visual do novo menu e dos estilos será feito pelo usuário no projeto de teste.**
